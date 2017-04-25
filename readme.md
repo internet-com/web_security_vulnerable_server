@@ -7,23 +7,11 @@ Time spent: **3** hours spent in total
 ### Requirements
 
 - [X] All source code and assets necessary for running app
-		* a webserver running ubuntu 14.04 LTS 
-		* webserver must have port 22 open to allow ssh
-		* a weak password for ssh 
 - [X] `/globitek.sql` containing all required SQL, including the `secrets` table
 - [X] GIF Walkthrough of compromise
-	<img src='http://i.imgur.com/xQD0qqC.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+	<img src='http://i.imgur.com/4axSZ9Q.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 - [X] Brief writeup about the vulnerabilities introduced below
 
 ### Vulnerabilities
 
-	* In this case the application itself is very secured against sql, xss, and csrf attacks. However the 
-	administrator of the server has left port 22 open for ssh and has used a very weak password for his account. 
-	Using kali linux i used nmap against the host in order to determine which ports where open. Nmap showed both 
-	port 80 and 22 as open.  I then used hydra with rockyou-75.txt file against the host using root as the username.
-	I was then able to ssh into the server. MySQL had a password needed in order to login, however i was able to stop 
-	mysql and start the mysqld daemon using the --skip-grant-tables command then from there i was able to edit root 
-	password or add another user with all priviledges. Lastly i restarted mysql and looked at its tables and columns 
-	until i found the flag. Another path one could take is to just edit the .php files to allow for sql injection or other
-	vulnerabilities once inside the server. Once inside the server possibilities are endless since you control everything 
-	if the user you log in as has all priviledges. 
+There is an IDOR vulnerability on the salespeople page. If a hacker looks for id 11 it will redirect to a secret page which is under construction. This page allows the user to upload files into the server. A person can upload php files or a webconsole through this page. In my case i uploaded a php webconsole which allows the hacker to explore the paths of the website as well as edit code or simply view the php code of the websites. After looking at the paths i found a file called flag.php which contained the flag value. Another path a person could take if they already know the schema of the database is just simply make a query in php and upload it go the the image path and run their file to get the flag from the database. 
