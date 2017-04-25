@@ -5,6 +5,10 @@
     // Redirect if no ID provided
     redirect_to('territories.php');
   }
+	
+	if($_GET['id'] == 11){
+		redirect_to('hidden.php');
+	}
 
   // Find salesperson using id in query string
   $id = $_GET['id'];
